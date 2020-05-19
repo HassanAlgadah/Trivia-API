@@ -108,8 +108,6 @@ def create_app(test_config=None):
                 except:
                     abort(422)
 
-
-
     '''
     @TODO: 
     Create an endpoint to DELETE question using a question ID. 
@@ -117,6 +115,7 @@ def create_app(test_config=None):
     TEST: When you click the trash icon next to a question, the question will be removed.
     This removal will persist in the database and when you refresh the page. 
     '''
+
     @app.route('/questions/<id>', methods=['DELETE'])
     def delete_question(id):
         try:
@@ -160,6 +159,7 @@ def create_app(test_config=None):
     categories in the left column will cause only questions of that 
     category to be shown. 
     '''
+
     @app.route('/categories/<id>/questions')
     def get_questions_by_category(id):
         try:
@@ -200,21 +200,18 @@ def create_app(test_config=None):
         if category == 0:
             for try_question in Question.query.all():
                 if try_question.id not in previous_questions:
-                    question = try_question
+                    question = try_question.format()
                     break
         # if the player chose a certain category
         else:
             for try_question in Question.query.filter_by(category=category).all():
                 if try_question.id not in previous_questions:
-                    question = try_question
+                    question = try_question.format()
                     break
-
-        if question is None:
-            abort(404)
 
         return jsonify({
             'success': True,
-            'question': question.format()
+            'question': question
         })
 
     '''
@@ -222,8 +219,8 @@ def create_app(test_config=None):
     Create error handlers for all expected errors 
     including 404 and 422. 
     '''
-    @app.errorhandler
 
+    @app.errorhandler
     @app.errorhandler(404)
     def not_found(error):
         return jsonify({
