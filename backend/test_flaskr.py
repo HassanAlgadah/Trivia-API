@@ -15,7 +15,7 @@ class TriviaTestCase(unittest.TestCase):
         self.app = create_app()
         self.client = self.app.test_client
         self.database_name = "trivia_test"
-        self.database_path = 'postgresql://postgres:123@localhost:5432/trivia_test'
+        self.database_path = 'postgresql://postgres:123@localhost:5432/' + self.database_name
         setup_db(self.app, self.database_path)
 
         self.new_question = {
@@ -41,11 +41,6 @@ class TriviaTestCase(unittest.TestCase):
     def tearDown(self):
         """Executed after reach test"""
         pass
-
-    """
-    TODO
-    Write at least one test for each test for successful operation and for expected errors.
-    """
 
     # creating a new question successfully
     def test_create_new_question(self):

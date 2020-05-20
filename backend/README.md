@@ -67,27 +67,109 @@ One note before you delve into your tasks: for each endpoint you are expected to
 9. Create error handlers for all expected errors including 400, 404, 422 and 500. 
 
 REVIEW_COMMENT
-```
+
 This README is missing documentation of your endpoints. Below is an example for your endpoint to get all categories. Please use it as a reference for creating your documentation and resubmit your code. 
 
 Endpoints
-GET '/categories'
-GET ...
-POST ...
-DELETE ...
 
 GET '/categories'
+
+GET '/questions/'
+
+GET '/categories/<id>/questions'
+
+POST '/questions/'
+
+POST '/quizzes'
+
+DELETE '/questions/id'
+
+**GET '/categories'**
 - Fetches a dictionary of categories in which the keys are the ids and the value is the corresponding string of the category
 - Request Arguments: None
 - Returns: An object with a single key, categories, that contains a object of id: category_string key:value pairs. 
+```
 {'1' : "Science",
 '2' : "Art",
 '3' : "Geography",
 '4' : "History",
 '5' : "Entertainment",
 '6' : "Sports"}
-
 ```
+**GET '/questions/'**
+- Fetches a dictionary of questions in which the keys are the ids
+- Request Arguments: None
+- Returns: An object contaning all the categories, a 'currentCategory' value contains the current endpoint category,
+ questions List having all the questions as objects with the keys, 'answer','category','diffcilty','id','question'
+ and a success value and the total questions in the database
+```
+{"categories": {
+"1": "Art",
+"2": "Science",
+"3": "Geography",
+"4": "History",
+"5": "Entertainment",
+"6": "Sports"
+},
+"currentCategory": "ALL",
+"questions": [
+{
+"answer": "potato",
+"category": "2",
+"difficulty": 3,
+"id": 13,
+"question": "what the meaning of the universe"
+}],
+"success": true,
+"totalQuestions": 4}
+```
+
+
+**GET '/categories/<id>/questions'**
+- Fetches a dictionary of questions based on a certien category
+- Request Arguments: id of the category
+- Returns: An object with a single key, and a currentCategory having the value of the current category, list of questions, 
+success having a Ture if the request didn't have any errors, 
+and total questions having the value of the number of the total questions in the database
+```
+{
+"currentCategory": "Science",
+"questions": [
+{
+"answer": "potato",
+"category": "2",
+"difficulty": 3,
+"id": 15,
+"question": "what the meaning of the universe"
+}
+],
+"success": true,
+"totalQuestions": 4
+}
+```
+**POST '/questions/'**
+- add a new question to the questions database 
+- Request Arguments: string 'question', string 'answer', Intger 'difficulty', string 'category'
+- Returns: An object with a single key, success having a Ture if the request didn't have any errors, 
+
+**POST '/quizzes'**
+- Fetches a question based on the Arguments 'previous_questions' and the category id
+- Request Arguments: list 'previous_questions' having the value of all pervious requested questions to this endpoint and intger of the category id 'category' 
+- Returns: An object with a single key, success having a Ture if the request didn't have any errors, and the requested question
+```
+{
+'success': True
+'question': question
+}
+```
+**DELETE '/questions/id'**
+- delete a question based on the question id
+- Request Arguments: Intger 'id' having the value of the id of the question wanted to delete
+- Returns: none
+
+
+
+
 
 
 ## Testing
